@@ -1,0 +1,331 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="totalBranchNumInt" Type="InOutArgument(x:Int32)" />
+    <x:Property Name="out_TransactionItemComplete" Type="OutArgument(ui:QueueItem)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1627,3232</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="50">
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Windows.Forms</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Platform.SyncObjects</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>UiPath.UIAutomationNext.Models</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.Numerics</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="80">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1366,3167" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="testString" />
+      <Variable x:TypeArguments="x:Int32" Default="1" Name="branchCardNum" />
+      <Variable x:TypeArguments="x:String" Name="totalBranchNumStr" />
+      <Variable x:TypeArguments="x:String" Name="allBranchesNumText" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="1304,173" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
+    <Sequence DisplayName="Sequence - get branch working times" sap:VirtualizedContainerService.HintSize="1304,2834" sap2010:WorkflowViewState.IdRef="Sequence_14">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Firefox Първа инвестиционна банка - Моята Fib" sap:VirtualizedContainerService.HintSize="1242,2723" sap2010:WorkflowViewState.IdRef="NApplicationCard_4" ScopeGuid="8ebea1b6-52bb-47ef-8aee-3391f4505732" Version="V2">
+        <uix:NApplicationCard.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="1208,2483" sap2010:WorkflowViewState.IdRef="Sequence_15">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Default="Стражите - Банско" Name="branchLocation" />
+                <Variable x:TypeArguments="x:String" Name="weekDayTimes" />
+                <Variable x:TypeArguments="x:String" Name="saturdayWorkTimes" />
+                <Variable x:TypeArguments="x:String" Name="sundayWorkTimes" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign sap:VirtualizedContainerService.HintSize="1146,114" sap2010:WorkflowViewState.IdRef="Assign_4">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[branchLocation]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Office").ToString]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <uix:NGetText DisplayName="Get Text 'пон-петък работно време'" sap:VirtualizedContainerService.HintSize="1146,189" sap2010:WorkflowViewState.IdRef="NGetText_14" ScopeIdentifier="8ebea1b6-52bb-47ef-8aee-3391f4505732" TextString="[weekDayTimes]" Version="V3">
+                <uix:NGetText.Target>
+                  <uix:TargetAnchorable BrowserURL="https://my.fibank.bg/EBank/public/offices" DesignTimeRectangle="909, 572, 82, 17" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl class='ng-binding' tag='P' /&gt;" FuzzySelectorArgument="&lt;webctrl class='ng-binding' tag='P' type='' /&gt;" Guid="dc106c95-213b-4d8b-937c-74260aabe87c" InformativeScreenshot="b6dc78f76023bf66f5a3a84c7e0eac2f.png" ScopeSelectorArgument="&lt;html app='firefox.exe' htmlwindowname='LZSDSOTUxZWNmNjlhYzsyMTQxNjdlZWJhO05ESXVOamd6LE1qTXVNekUzTlE9PSxVMjltYVdFdFkyRndhWFJoYkE9PSxVMjltYVdFPSxLekF5T2pBdyxRa2M9LDsxOzRiYzdiOzswOzE7MDswOztiZzs7MTsxOzA7MDtjaGF0O2ZkNjQ4Ow__LZSDE' title='Първа инвестиционна банка - Моята Fibank' /&gt;" SearchSteps="FuzzySelector" Version="V3" Visibility="Interactive">
+                    <uix:TargetAnchorable.Anchors>
+                      <scg:List x:TypeArguments="uix:ITarget" Capacity="2">
+                        <uix:Target DesignTimeRectangle="776, 514, 300, 22" ElementType="Text" FullSelectorArgument="&lt;webctrl tag='P' /&gt;" FuzzySelectorArgument="[string.Format(&quot;&lt;webctrl tag='P' type='' class='' aaname='{0}' check:innerText='*' /&gt;&quot;, branchLocation)]" Guid="eecfc8d6-0b85-4eca-9f63-9704047cb63e" ImageBase64="" SearchSteps="FuzzySelector" />
+                        <uix:Target DesignTimeRectangle="778, 572, 115, 17" ElementType="Text" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;ul&amp;gt;li&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;dl&amp;gt;dt&amp;gt;div&amp;gt;span&amp;gt;p' tag='P' /&gt;" FuzzySelectorArgument="&lt;webctrl type='' tag='P' class='' aaname='                                                                ' check:innerText='Понеделник - Петък' /&gt;" Guid="3a03e9a7-ca4f-4e68-838a-9a6ac5b1e39e" SearchSteps="FuzzySelector" />
+                      </scg:List>
+                    </uix:TargetAnchorable.Anchors>
+                  </uix:TargetAnchorable>
+                </uix:NGetText.Target>
+              </uix:NGetText>
+              <Assign sap:VirtualizedContainerService.HintSize="1146,114" sap2010:WorkflowViewState.IdRef="Assign_5">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[weekDayTimes]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[weekDayTimes.Trim]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <uix:NGetText DisplayName="Get Text 'събота работно време'" sap:VirtualizedContainerService.HintSize="1146,189" sap2010:WorkflowViewState.IdRef="NGetText_15" ScopeIdentifier="8ebea1b6-52bb-47ef-8aee-3391f4505732" TextString="[saturdayWorkTimes]" Version="V3">
+                <uix:NGetText.Target>
+                  <uix:TargetAnchorable BrowserURL="https://my.fibank.bg/EBank/public/offices" DesignTimeRectangle="909, 589, 82, 18" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;ul&amp;gt;li&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;dl&amp;gt;dd&amp;gt;span&amp;gt;p' idx='2' tag='P' /&gt;" FuzzySelectorArgument="&lt;webctrl type='' class='ng-binding ng-scope' tag='P' /&gt;" Guid="1b2a2664-47d2-4b7d-bd20-515230aa92ff" InformativeScreenshot="8c3ac6a467d0b71c0b86b567deb05969.png" ScopeSelectorArgument="&lt;html app='firefox.exe' htmlwindowname='LZSDSOTUxZWNmNjlhYzsyMTQxNjdlZWJhO05ESXVOamd6LE1qTXVNekUzTlE9PSxVMjltYVdFdFkyRndhWFJoYkE9PSxVMjltYVdFPSxLekF5T2pBdyxRa2M9LDsxOzRiYzdiOzswOzE7MDswOztiZzs7MTsxOzA7MDtjaGF0O2ZkNjQ4Ow__LZSDE' title='Първа инвестиционна банка - Моята Fibank' /&gt;" SearchSteps="FuzzySelector" Version="V3" Visibility="Interactive">
+                    <uix:TargetAnchorable.Anchors>
+                      <scg:List x:TypeArguments="uix:ITarget" Capacity="2">
+                        <uix:Target DesignTimeRectangle="776, 514, 300, 22" ElementType="Text" FullSelectorArgument="&lt;webctrl tag='P' /&gt;" FuzzySelectorArgument="[string.Format(&quot;&lt;webctrl tag='P' type='' class='' aaname='{0}' /&gt;&quot;, branchLocation)]" Guid="d6f93fd7-6745-4868-b1bc-7d4f1f4b34c2" ImageBase64="" SearchSteps="FuzzySelector" />
+                        <uix:Target DesignTimeRectangle="778, 589, 115, 18" ElementType="Text" FullSelectorArgument="&lt;webctrl class='ng-scope' tag='P' /&gt;" FuzzySelectorArgument="&lt;webctrl class='ng-scope' tag='P' type='' aaname='                          ' check:innerText='Събота' /&gt;" Guid="ffc43990-3979-448c-a43a-fd0765c15c8c" SearchSteps="FuzzySelector" />
+                      </scg:List>
+                    </uix:TargetAnchorable.Anchors>
+                  </uix:TargetAnchorable>
+                </uix:NGetText.Target>
+              </uix:NGetText>
+              <Assign sap:VirtualizedContainerService.HintSize="1146,114" sap2010:WorkflowViewState.IdRef="Assign_6">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[saturdayWorkTimes]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[saturdayWorkTimes.Trim]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1146,975" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                <TryCatch.Try>
+                  <Sequence sap:VirtualizedContainerService.HintSize="1108,715" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <uix:NCheckState DisplayName="Check App State '10:00 - 18:00 ч.'" sap:VirtualizedContainerService.HintSize="1046,628" sap2010:WorkflowViewState.IdRef="NCheckState_1" ScopeIdentifier="8ebea1b6-52bb-47ef-8aee-3391f4505732" Timeout="5" Version="V3">
+                      <uix:NCheckState.IfExists>
+                        <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="496,386" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <uix:NGetText DisplayName="Get Text 'неделя работно време'" sap:VirtualizedContainerService.HintSize="434,189" sap2010:WorkflowViewState.IdRef="NGetText_16" ScopeIdentifier="8ebea1b6-52bb-47ef-8aee-3391f4505732" TextString="[sundayWorkTimes]" Version="V3">
+                            <uix:NGetText.Target>
+                              <uix:TargetAnchorable BrowserURL="https://my.fibank.bg/EBank/public/offices" DesignTimeRectangle="909, 607, 82, 17" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;ul&amp;gt;li&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;dl&amp;gt;dd&amp;gt;span&amp;gt;p' idx='3' tag='P' /&gt;" FuzzySelectorArgument="&lt;webctrl type='' class='ng-binding ng-scope' tag='P' /&gt;" Guid="03c7bec9-887f-4220-a79f-d5b724a3ced4" InformativeScreenshot="129018ec10cf193cc5121bf97570d869.png" ScopeSelectorArgument="&lt;html app='firefox.exe' htmlwindowname='LZSDSOTUxZWNmNjlhYzsyMTQxNjdlZWJhO05ESXVOamd6LE1qTXVNekUzTlE9PSxVMjltYVdFdFkyRndhWFJoYkE9PSxVMjltYVdFPSxLekF5T2pBdyxRa2M9LDsxOzRiYzdiOzswOzE7MDswOztiZzs7MTsxOzA7MDtjaGF0O2ZkNjQ4Ow__LZSDE' title='Първа инвестиционна банка - Моята Fibank' /&gt;" SearchSteps="FuzzySelector" Version="V3" Visibility="Interactive">
+                                <uix:TargetAnchorable.Anchors>
+                                  <scg:List x:TypeArguments="uix:ITarget" Capacity="2">
+                                    <uix:Target DesignTimeRectangle="776, 514, 300, 22" ElementType="Text" FullSelectorArgument="&lt;webctrl tag='P' /&gt;" FuzzySelectorArgument="[string.Format(&quot;&lt;webctrl tag='P' type='' class='' aaname='{0}' /&gt;&quot;, branchLocation)]" Guid="7a535e7f-ccd2-4299-a8c5-12f8e9647326" ImageBase64="" SearchSteps="FuzzySelector" />
+                                    <uix:Target DesignTimeRectangle="778, 607, 115, 17" ElementType="Text" FullSelectorArgument="&lt;webctrl class='ng-scope' isleaf='1' tag='P' /&gt;" FuzzySelectorArgument="&lt;webctrl class='ng-scope' isleaf='1' tag='P' type='' aaname='Неделя' check:innerText='Неделя' /&gt;" Guid="91408320-7f7f-4a45-a00a-fd59fa153d46" SearchSteps="FuzzySelector" />
+                                  </scg:List>
+                                </uix:TargetAnchorable.Anchors>
+                              </uix:TargetAnchorable>
+                            </uix:NGetText.Target>
+                          </uix:NGetText>
+                          <Assign sap:VirtualizedContainerService.HintSize="434,107" sap2010:WorkflowViewState.IdRef="Assign_7">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[sundayWorkTimes]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[sundayWorkTimes.Trim]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </Sequence>
+                      </uix:NCheckState.IfExists>
+                      <uix:NCheckState.IfNotExists>
+                        <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="496,197" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign sap:VirtualizedContainerService.HintSize="434,107" sap2010:WorkflowViewState.IdRef="Assign_9">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[sundayWorkTimes]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">["Closed"]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </Sequence>
+                      </uix:NCheckState.IfNotExists>
+                      <uix:NCheckState.Target>
+                        <uix:TargetAnchorable BrowserURL="https://my.fibank.bg/EBank/public/offices" CVScreenId="dc7a0353-404d-4ba7-aefe-a72b155e5cbc" CvTextArea="1263, 828, 82, 12" CvTextArgument="10:00 - 18:00 4." CvType="Text" DesignTimeRectangle="909, -283, 82, 17" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;ul&amp;gt;li&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;dl&amp;gt;dd&amp;gt;span&amp;gt;p' idx='31' tag='P' /&gt;" FuzzySelectorArgument="&lt;webctrl type='' class='ng-binding ng-scope' tag='P' /&gt;" Guid="84059339-bca3-4733-9628-d3a9c921bc66" ImageBase64="" InformativeScreenshot="4211e7e9ff4c25c867efaeb1fbde4fc0.png" ScopeSelectorArgument="&lt;html app='firefox.exe' htmlwindowname='LZSDSOGVkZWY3ZTU4ODswZTdiZjA4Njk4O05ESXVOamd6LE1qTXVNekUzTlE9PSxVMjltYVdFdFkyRndhWFJoYkE9PSxVMjltYVdFPSxLekF5T2pBdyxRa2M9LDsxOzRiYzdiOzswOzE7MDswOztiZzs7MTsxOzA7MDtjaGF0O2ZkNjQ4Ow__LZSDE' title='Първа инвестиционна банка - Моята Fibank' /&gt;" SearchSteps="FuzzySelector" Version="V3" Visibility="Interactive">
+                          <uix:TargetAnchorable.Anchors>
+                            <scg:List x:TypeArguments="uix:ITarget" Capacity="2">
+                              <uix:Target DesignTimeRectangle="776, -376, 300, 22" ElementType="Text" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;ul&amp;gt;li&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;p' idx='21' isleaf='1' tag='P' /&gt;" FuzzySelectorArgument="[string.Format(&quot;&lt;webctrl tag='P' type='' class='' aaname='{0}' /&gt;&quot;, branchLocation)]" Guid="1e5eb1da-811e-4872-a5bb-9049f63fbed5" ImageBase64="" SearchSteps="FuzzySelector" />
+                              <uix:Target CVScreenId="c5d6ae4a-78b6-426d-9c39-82edd068456a" CvTextArea="1143, 842, 73, 17" CvTextArgument="YAb/XeHo" CvType="Text" DesignTimeRectangle="778, -283, 115, 17" ElementType="Text" FullSelectorArgument="&lt;webctrl class='ng-scope' idx='9' isleaf='1' tag='P' /&gt;" FuzzySelectorArgument="&lt;webctrl class='ng-scope' type='' isleaf='1' tag='P' aaname='Неделя' check:innerText='Неделя' /&gt;" Guid="dde35f38-088d-4a35-b266-283040fb26f6" SearchSteps="FuzzySelector" />
+                            </scg:List>
+                          </uix:TargetAnchorable.Anchors>
+                        </uix:TargetAnchorable>
+                      </uix:NCheckState.Target>
+                    </uix:NCheckState>
+                  </Sequence>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:BusinessRuleException" sap:VirtualizedContainerService.HintSize="1112,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:BusinessRuleException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Throw Exception="[new BusinessRuleException(&quot;Branch has no sunday working times.&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1146,122" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[weekDayTimes]" />
+              <Assign sap:VirtualizedContainerService.HintSize="1146,114" sap2010:WorkflowViewState.IdRef="Assign_8">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Object">[in_TransactionItem.SpecificContent("workingTimesSat")]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Object">[saturdayWorkTimes]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1146,122" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[saturdayWorkTimes]" />
+              <Assign sap:VirtualizedContainerService.HintSize="1146,114" sap2010:WorkflowViewState.IdRef="Assign_10">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Object">[in_TransactionItem.SpecificContent("workingTimesSun")]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[sundayWorkTimes]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1146,122" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[sundayWorkTimes]" />
+              <Assign sap:VirtualizedContainerService.HintSize="1146,107" sap2010:WorkflowViewState.IdRef="Assign_11">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="ui:QueueItem">[out_TransactionItemComplete]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="ui:QueueItem">[in_TransactionItem]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </ActivityAction>
+        </uix:NApplicationCard.Body>
+        <uix:NApplicationCard.TargetApp>
+          <uix:TargetApp Area="0, 0, 0, 0" BrowserType="Firefox" ContentHash="KXiyVJ_yakmVV21-IfPSng" IconBase64="AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAQAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////ALuIMwCqqqoAd3d3AN3d3QDMzLsA7u7uAJmZmQC7u7sAzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwcHBwcHBQMDCgcHBwcHBwcHBwcHCgcKBAQKBwcHBwcHBwcHCQQIBwoEBAoHBwcHBwcHCQQEBgcHCgQECgcHBwcHCQQECgcHBwcKBAQKBwcHCQQECgcHAgIHBwoEBAUHCgQECgEBAQICAQEBCggBAQMECgEBAQECAgEBAQEBBQMJCgEBAQEBAgIBAQEBCgQIBQEDCgEBAQICAQEBCgQECgEFBAQKAQECAgEBCgQECQEBAQoEBAoBAQEBCgQECQEBAQEBCgQECgEBCgQECQEBAQEBAQEKBAQKAQMECQEBAQEBAQEBAQoEBAUBCgEBAQEBAQEBAQEBBQgDAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" InformativeScreenshot="d588398cc1ee8e1915b081539c4af288.png" Reference="1FL9R3R7wEyarHbkQYbj5A/cJaQmvVEPEG32_puz0M0xg" Selector="&lt;html app='firefox.exe' htmlwindowname='LZSDSYzFmOWFlNjkyZjthMGEwODkzZmYwO05ESXVOamd6LE1qTXVNekUzTlE9PSxVMjltYVdFdFkyRndhWFJoYkE9PSxVMjltYVdFPSxLekF5T2pBdyxRa2M9LDsxOzRiYzdiOzswOzE7MDswOztiZzs7MTsxOzA7MDtjaGF0O2ZkNjQ4Ow__LZSDE' title='Първа инвестиционна банка - Моята Fibank' /&gt;" Title="Първа инвестиционна банка - Моята Fibank" Url="https://my.fibank.bg/EBank/public/offices" />
+        </uix:NApplicationCard.TargetApp>
+      </uix:NApplicationCard>
+    </Sequence>
+  </Sequence>
+</Activity>
